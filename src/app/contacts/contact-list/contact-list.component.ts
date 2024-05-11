@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Contact } from '../contact-model';
 
 @Component({
@@ -26,9 +26,15 @@ export class ContactListComponent implements OnInit {
     ),
   ];
 
+  @Output() selectedContactEvent = new EventEmitter<Contact>();
+
   constructor() {}
 
   ngOnInit(): void {
     throw new Error('Method not implemented.');
+  }
+
+  onContactSelected(contact: Contact) {
+    this.selectedContactEvent.emit(contact);
   }
 }

@@ -7,5 +7,5 @@ import { Contact } from '../../contact-model';
   styleUrl: './contact-item.component.css',
 })
 export class ContactItemComponent {
-  @Input() contact: Contact; // assuming Contact is the type of your contact items
+  @Input() contact: Contact;
 }
