@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { Feature } from './feature.enum';
 
 @Component({
   selector: 'cms-header',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   collapsed = true;
+
+  @Output() selectedFeatureEvent = new EventEmitter<string>();
+  Feature = Feature;
+
+  onSelected(feature: Feature) {
+    this.selectedFeatureEvent.emit(feature);
+  }
 }

@@ -16,9 +16,14 @@
       (window:resize)="collapsed = true"
     >
       <ul class="nav navbar-nav">
-        <li><a href="#">Documents</a></li>
-        <li><a href="#">Messages</a></li>
-        <li><a href="#">Contacts</a></li>
+        <!-- <li (click)="onSelected('documents')">Documents</li>
+        <li (click)="onSelected('messages')">Messages</li>
+        <li (click)="onSelected('contacts')">Contacts</li> -->
+        <li>
+          <a href="#" (click)="onSelected(Feature.Documents)">Documents</a>
+        </li>
+        <li><a href="#" (click)="onSelected(Feature.Messages)">Messages</a></li>
+        <li><a href="#" (click)="onSelected(Feature.Contacts)">Contacts</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
