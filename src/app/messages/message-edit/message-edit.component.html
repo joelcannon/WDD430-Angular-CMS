@@ -7,6 +7,7 @@
           <input
             type="text"
             id="subject"
+            #subject
             class="form-control"
             size="120"
             max="120"
@@ -18,6 +19,7 @@
           <input
             type="text"
             id="message"
+            #msgText
             class="form-control"
             max="255"
             size="120"
@@ -26,8 +28,15 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button class="btn btn-success" type="submit">Send</button>
-          <button class="btn btn-danger" type="button">Clear</button>
+          <button
+            class="btn btn-success"
+            (click)="onSendMessage(); $event.preventDefault()"
+          >
+            Send
+          </button>
+          <button class="btn btn-danger" type="button" (click)="onClear()">
+            Clear
+          </button>
         </div>
       </div>
     </form>
