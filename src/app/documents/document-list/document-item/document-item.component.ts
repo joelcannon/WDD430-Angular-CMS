@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Document } from '../../document.model'; // replace with the actual path to the Document model
 
 @Component({
-  selector: 'cms-document-item',
+  selector: 'app-document-item',
   templateUrl: './document-item.component.html',
-  styleUrl: './document-item.component.css',
+  styleUrls: ['./document-item.component.css'],
 })
-export class DocumentItemComponent {}
+export class DocumentItemComponent {
+  @Input() document: Document;
+}
