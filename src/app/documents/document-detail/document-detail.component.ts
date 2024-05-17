@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Document } from '../document.model'; // replace with the actual path to the Document model
+import { Document } from '../document.model';
 
 @Component({
   selector: 'cms-document-detail',

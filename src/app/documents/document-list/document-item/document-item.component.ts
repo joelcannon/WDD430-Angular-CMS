@@ -1,11 +1,15 @@
-import { Component, Input } from '@angular/core';
-import { Document } from '../../document.model'; // replace with the actual path to the Document model
+import { Component, Input, OnInit } from '@angular/core';
+import { Document } from '../../document.model';
 
 @Component({
-  selector: 'app-document-item',
+  selector: 'cms-document-item',
   templateUrl: './document-item.component.html',
   styleUrls: ['./document-item.component.css'],
 })
-export class DocumentItemComponent {
+export class DocumentItemComponent implements OnInit {
   @Input() document: Document;
+
+  ngOnInit() {
+    console.log('DocumentItemComponent initialized');
+  }
 }
