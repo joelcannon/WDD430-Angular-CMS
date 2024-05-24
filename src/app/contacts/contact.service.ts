@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Contact } from './contact.model';
 import { MOCKCONTACTS } from './MOCKCONTACTS'; // Import the MOCKCONTACTS array
 
@@ -7,6 +7,7 @@ import { MOCKCONTACTS } from './MOCKCONTACTS'; // Import the MOCKCONTACTS array
 })
 export class ContactService {
   contacts: Contact[] = [];
+  contactSelectedEvent = new EventEmitter<Contact>();
 
   constructor() {
     this.contacts = MOCKCONTACTS;
