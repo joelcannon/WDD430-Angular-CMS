@@ -15,12 +15,17 @@ export class MessageEditComponent {
   @ViewChild('subject') subjectInputRef: ElementRef;
   @ViewChild('msgText') msgTextInputRef: ElementRef;
   @Output() addMessageEvent = new EventEmitter<Message>();
-  currentSender: string = 'Joel Cannon';
+  currentSender: string = '1';
 
   onSendMessage() {
     const msgSubject = this.subjectInputRef.nativeElement.value;
     const msgText = this.msgTextInputRef.nativeElement.value;
-    const newMessage = new Message(1, msgSubject, msgText, this.currentSender);
+    const newMessage = new Message(
+      '1',
+      msgSubject,
+      msgText,
+      this.currentSender
+    );
     this.addMessageEvent.emit(newMessage);
   }
 
