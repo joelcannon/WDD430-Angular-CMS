@@ -23,4 +23,9 @@ export class ContactDetailComponent implements OnInit {
       this.contact = this.contactService.getContact(id);
     });
   }
+
+  onDelete() {
+    this.contactService.deleteContact(this.contact);
+    this.router.navigateByUrl('/contacts');
+  }
 }
