@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { Feature } from './feature.enum';
 
 @Component({
@@ -9,10 +9,5 @@ import { Feature } from './feature.enum';
 export class HeaderComponent {
   collapsed = true;
 
-  @Output() selectedFeatureEvent = new EventEmitter<string>();
   Feature = Feature;
-
-  onSelected(feature: Feature) {
-    this.selectedFeatureEvent.emit(feature);
-  }
 }
