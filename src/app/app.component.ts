@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Feature } from './feature.enum';
 
 @Component({
   selector: 'cms-root',
@@ -8,5 +7,4 @@ import { Feature } from './feature.enum';
 })
 export class AppComponent {
   title = 'cms';
-  Feature = Feature;
 }

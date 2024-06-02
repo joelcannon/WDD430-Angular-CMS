@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Feature } from './feature.enum';
 
 @Component({
   selector: 'cms-header',
@@ -8,6 +7,4 @@ import { Feature } from './feature.enum';
 })
 export class HeaderComponent {
   collapsed = true;
-
-  Feature = Feature;
 }
