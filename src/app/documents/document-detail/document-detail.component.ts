@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DocumentService } from '../document.service';
 import { Document } from '../document.model';
 
@@ -8,12 +8,13 @@ import { Document } from '../document.model';
   templateUrl: './document-detail.component.html',
   styleUrls: ['./document-detail.component.css'],
 })
-export class DocumentDetailComponent {
+export class DocumentDetailComponent implements OnInit {
   document: Document;
 
   constructor(
     private route: ActivatedRoute,
-    private documentService: DocumentService
+    private documentService: DocumentService,
+    private router: Router
   ) {}
 
   ngOnInit() {
