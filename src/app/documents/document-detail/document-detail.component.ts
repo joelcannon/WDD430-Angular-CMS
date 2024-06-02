@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { DocumentService } from '../document.service';
 import { Document } from '../document.model';
 
 @Component({
@@ -7,5 +9,17 @@ import { Document } from '../document.model';
   styleUrls: ['./document-detail.component.css'],
 })
 export class DocumentDetailComponent {
-  @Input() document: Document;
+  document: Document;
+
+  constructor(
+    private route: ActivatedRoute,
+    private documentService: DocumentService
+  ) {}
+
+  ngOnInit() {
+    this.route.params.subscribe((params) => {
+      const id = params['id'];
+      this.document = this.documentService.getDocument(id);
+    });
+  }
 }
