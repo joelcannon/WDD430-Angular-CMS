@@ -16,22 +16,27 @@
       (window:resize)="collapsed = true"
     >
       <ul class="nav navbar-nav">
-        <!-- <li (click)="onSelected('documents')">Documents</li>
-        <li (click)="onSelected('messages')">Messages</li>
-        <li (click)="onSelected('contacts')">Contacts</li> -->
-        <li>
-          <a href="#" (click)="onSelected(Feature.Documents)">Documents</a>
+        <li routerLinkActive="active">
+          <a class="nav-link" routerLink="/documents">Documents</a>
         </li>
-        <li><a href="#" (click)="onSelected(Feature.Messages)">Messages</a></li>
-        <li><a href="#" (click)="onSelected(Feature.Contacts)">Contacts</a></li>
+        <li routerLinkActive="active">
+          <a class="nav-link" routerLink="/messages">Messages</a>
+        </li>
+        <li routerLinkActive="active">
+          <a class="nav-link" routerLink="/contacts">Contacts</a>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+        <li class="dropdown" appDropdown>
           <a href="#" class="dropdown-toggle" role="button"
             >User <span class="caret"></span
           ></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Login?</a></li>
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Other</a></li>
+            <li role="separator" class="divider"></li>
+
+            <li><a href="#">Logout</a></li>
           </ul>
         </li>
       </ul>
