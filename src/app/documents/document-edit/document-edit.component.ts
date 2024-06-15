@@ -5,4 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './document-edit.component.html',
   styleUrl: './document-edit.component.css',
 })
-export class DocumentEditComponent {}
+export class DocumentEditComponent {
+  onCancel() {
+    // Add your logic here
+  }
+}
