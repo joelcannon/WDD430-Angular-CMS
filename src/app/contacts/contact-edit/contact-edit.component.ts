@@ -95,4 +95,13 @@ export class ContactEditComponent implements OnInit {
     }
     return this.groupContacts.some((contact) => contact.id === newContact.id);
   }
+
+  addToGroup($event: any) {
+    const selectedContact: Contact = $event.dragData;
+    const invalidGroupContact = this.isInvalidContact(selectedContact);
+    if (invalidGroupContact) {
+      return;
+    }
+    this.groupContacts.push(selectedContact);
+  }
 }
