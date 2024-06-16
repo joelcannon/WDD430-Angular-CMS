@@ -5,7 +5,7 @@
       <a class="btn btn-success" [routerLink]="['new']">New Contact</a>
     </div>
   </div>
-  <div class="panel-body">
+  <div cdkDropList #contactList="cdkDropList" class="panel-body">
     <cms-contact-item
       *ngFor="let contact of contacts"
       cdkDrag

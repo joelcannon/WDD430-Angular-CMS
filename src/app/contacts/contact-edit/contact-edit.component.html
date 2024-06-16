@@ -86,16 +86,16 @@
             class="row"
             id="groupList"
             style="min-height: 3rem"
-            (drop)="drop($event)"
-            (dragover)="allowDrop($event)"
+            cdkDropList
+            [cdkDropListConnectedTo]="contactList"
+            (cdkDropListDropped)="drop($event)"
           >
             <div *ngFor="let contact of groupContacts; let i = index">
               <div>
                 <cms-contact-item
                   class="col-sm-11"
                   [contact]="contact"
-                  draggable="true"
-                  (dragstart)="drag($event)"
+                  cdkDrag
                 ></cms-contact-item>
                 <button
                   class="btn btn-danger col-sm-2 deleteButton"

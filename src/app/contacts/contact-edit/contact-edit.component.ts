@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router'; // Import Router and ActivatedRoute
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  CdkDropList,
+} from '@angular/cdk/drag-drop';
 
 import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
@@ -10,7 +15,8 @@ import { ContactService } from '../contact.service';
   styleUrl: './contact-edit.component.css',
 })
 export class ContactEditComponent implements OnInit {
-  // groupContacts: Contact[] = [];
+  @ViewChild('contactList') contactList: CdkDropList;
+
   originalContact: Contact; // Add this line
   contact: Contact = new Contact('', '', '', '', '', []);
   groupContacts: Contact[] = [];
@@ -72,20 +78,31 @@ export class ContactEditComponent implements OnInit {
   }
 
   drag(event) {
+    console.log('drag');
     event.dataTransfer.setData('text', event.target.id);
   }
 
   allowDrop(event) {
+    console.log('allowDrop');
     event.preventDefault();
   }
 
-  drop(event) {
-    event.preventDefault();
-    var data = event.dataTransfer.getData('text');
-    event.target.appendChild(document.getElementById(data));
+  // drop(event) {
+  //   event.preventDefault();
+  //   var data = event.dataTransfer.getData('text');
+  //   event.target.appendChild(document.getElementById(data));
+  // }
+  drop(event: CdkDragDrop<string[]>) {
+    console.log('drop');
+    moveItemInArray(
+      this.groupContacts,
+      event.previousIndex,
+      event.currentIndex
+    );
   }
 
   isInvalidContact(newContact: Contact): boolean {
+    console.log('isInvalidContact');
     if (!newContact) {
       // newContact has no value
       return true;
@@ -103,6 +120,7 @@ export class ContactEditComponent implements OnInit {
       return;
     }
     this.groupContacts.push(selectedContact);
+    console.log('addToGroup');
   }
 
   onRemoveItem(index: number) {
@@ -110,5 +128,6 @@ export class ContactEditComponent implements OnInit {
       return;
     }
     this.groupContacts.splice(index, 1);
+    console.log('onRemoveItem');
   }
 }
