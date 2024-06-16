@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
@@ -9,10 +10,18 @@ import { ContactService } from '../contact.service';
 })
 export class ContactEditComponent implements OnInit {
   groupContacts: Contact[] = [];
+  contact: Contact = new Contact('', '', '', '', '', []);
+  email: string = '';
 
-  constructor() {}
+  constructor(private contactService: ContactService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('ContactEditComponent ngOnInit');
+  }
+
+  onSubmit(form: NgForm) {
+    // Add your logic here to handle form submission
+  }
 
   onCancel() {
     // Add your logic here
