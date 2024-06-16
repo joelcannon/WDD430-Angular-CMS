@@ -84,4 +84,15 @@ export class ContactEditComponent implements OnInit {
     var data = event.dataTransfer.getData('text');
     event.target.appendChild(document.getElementById(data));
   }
+
+  isInvalidContact(newContact: Contact): boolean {
+    if (!newContact) {
+      // newContact has no value
+      return true;
+    }
+    if (this.contact && newContact.id === this.contact.id) {
+      return true; // Cannot add yourself to your own group
+    }
+    return this.groupContacts.some((contact) => contact.id === newContact.id);
+  }
 }
