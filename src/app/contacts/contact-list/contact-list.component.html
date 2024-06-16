@@ -8,6 +8,7 @@
   <div class="panel-body">
     <cms-contact-item
       *ngFor="let contact of contacts"
+      cdkDrag
       [contact]="contact"
       [routerLink]="[contact.id]"
     >

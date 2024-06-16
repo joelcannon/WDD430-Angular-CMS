@@ -70,4 +70,18 @@ export class ContactEditComponent implements OnInit {
   onCancel() {
     this.router.navigate(['/contacts']);
   }
+
+  drag(event) {
+    event.dataTransfer.setData('text', event.target.id);
+  }
+
+  allowDrop(event) {
+    event.preventDefault();
+  }
+
+  drop(event) {
+    event.preventDefault();
+    var data = event.dataTransfer.getData('text');
+    event.target.appendChild(document.getElementById(data));
+  }
 }
