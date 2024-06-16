@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router, ActivatedRoute, Params } from '@angular/router'; // Import Router and ActivatedRoute
 
 import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
@@ -9,21 +10,64 @@ import { ContactService } from '../contact.service';
   styleUrl: './contact-edit.component.css',
 })
 export class ContactEditComponent implements OnInit {
-  groupContacts: Contact[] = [];
+  // groupContacts: Contact[] = [];
+  originalContact: Contact; // Add this line
   contact: Contact = new Contact('', '', '', '', '', []);
+  groupContacts: Contact[] = [];
+  editMode: boolean = false; // Add this line
+  id: string; // Add this line
   email: string = '';
 
-  constructor(private contactService: ContactService) {}
+  constructor(
+    private contactService: ContactService,
+    private router: Router, // Inject Router
+    private route: ActivatedRoute // Inject ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    console.log('ContactEditComponent ngOnInit');
+    this.route.params.subscribe((params: Params) => {
+      this.id = params['id'];
+      if (this.id === undefined || this.id === null) {
+        this.editMode = false;
+        return;
+      }
+      this.originalContact = this.contactService.getContact(this.id);
+      if (this.originalContact === undefined || this.id === null) {
+        return;
+      }
+      this.editMode = true;
+      this.contact = JSON.parse(JSON.stringify(this.originalContact)); // Clone originalContact
+
+      if (
+        this.originalContact.groupContacts !== undefined &&
+        this.originalContact.groupContacts !== null
+      ) {
+        this.groupContacts = JSON.parse(
+          JSON.stringify(this.originalContact.groupContacts)
+        ); // Clone group
+      }
+    });
   }
 
   onSubmit(form: NgForm) {
-    // Add your logic here to handle form submission
+    const value = form.value; // Get the value of the form
+    const newContact = new Contact(
+      '',
+      value.name,
+      value.email,
+      value.phone,
+      value.imageUrl,
+      this.groupContacts
+    );
+    if (this.editMode === true) {
+      this.contactService.updateContact(this.originalContact, newContact);
+    } else {
+      this.contactService.addContact(newContact);
+    }
+    this.router.navigate(['/contacts']);
   }
 
   onCancel() {
-    // Add your logic here
+    this.router.navigate(['/contacts']);
   }
 }
