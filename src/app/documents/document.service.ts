@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Document } from './document.model';
-import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
+import { Document } from './document.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,13 +13,19 @@ export class DocumentService {
   documentListChangedEvent = new Subject<Document[]>();
   maxDocumentId: number;
 
-  constructor() {
-    this.documents = MOCKDOCUMENTS;
-    this.maxDocumentId = this.getMaxId();
-  }
+  constructor(private http: HttpClient) {}
 
-  getDocuments(): Document[] {
-    return this.documents.slice();
+  getDocumentsObservable(): Observable<Document[]> {
+    return this.http
+      .get<Document[]>(`${environment.firebaseUrl}/documents.json`)
+      .pipe(
+        map((documents: Document[]) => {
+          // Optional: Include any transformations or additional logic here before returning
+          this.maxDocumentId = this.getMaxId(documents);
+          console.log('maxDocumentId', this.maxDocumentId);
+          return documents.sort((a, b) => a.name.localeCompare(b.name));
+        })
+      );
   }
 
   getDocument(id: string): Document {
@@ -62,10 +70,10 @@ export class DocumentService {
     this.documentListChangedEvent.next(this.documents.slice());
   }
 
-  getMaxId(): number {
-    return this.documents.reduce((maxId, document) => {
-      const currentId = Number(document.id);
-      return currentId > maxId ? currentId : maxId;
-    }, 0);
+  getMaxId(documents: Document[]): number {
+    return documents.reduce(
+      (maxId, document) => Math.max(maxId, parseInt(document.id, 10)),
+      0
+    );
   }
 }
