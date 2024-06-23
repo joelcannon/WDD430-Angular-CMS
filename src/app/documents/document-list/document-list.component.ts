@@ -21,12 +21,12 @@ export class DocumentListComponent implements OnInit, OnDestroy {
   constructor(private documentService: DocumentService) {}
 
   ngOnInit(): void {
-    console.log('DocumentListComponent ngOnInit');
-    this.documents$ = this.documentService.getDocumentsObservable(); // Assuming this method is implemented to return an Observable
+    this.documents$ = this.documentService.fetchDocuments();
     this.documentsSubscription =
       this.documentService.documentListChangedEvent.subscribe({
         next: (documents: Document[]) => {
           // Handle document update logic if necessary
+          // this.documentService.documents = documents;
         },
         error: (error) => {
           // Handle error
