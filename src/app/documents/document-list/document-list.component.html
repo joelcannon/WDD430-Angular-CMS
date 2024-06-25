@@ -10,7 +10,7 @@
   <div class="panel-body">
     <div class="center-panel">
       <cms-document-item
-        *ngFor="let doc of documents$ | async"
+        *ngFor="let doc of documents$ | async; trackBy: trackByDocuments"
         [document]="doc"
         [routerLink]="[doc.id]"
       >

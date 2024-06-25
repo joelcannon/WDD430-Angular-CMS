@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 import { Document } from './document.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { tap } from 'rxjs/operators';
+import { DataStorageService } from '../shared/data-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,10 +12,18 @@ export class DocumentService {
   documentListChangedEvent = new Subject<Document[]>();
   maxDocumentId: number;
 
-  constructor(private http: HttpClient) {}
+  constructor(private dataStorageService: DataStorageService) {
+    this.dataStorageService.documentsChanged.subscribe(
+      (documents: Document[]) => {
+        this.setDocuments(documents);
+        this.maxDocumentId = this.getMaxId();
+      }
+    );
+  }
 
   setDocuments(documents: Document[]) {
     this.documents = documents;
+    this.maxDocumentId = this.getMaxId();
     this.documentListChangedEvent.next(this.documents.slice());
   }
 
@@ -38,43 +43,14 @@ export class DocumentService {
     return this.documents.find((document) => document.id === id) || null;
   }
 
-  fetchDocuments(): Observable<Document[]> {
-    return this.http
-      .get<Document[]>(`${environment.firebaseUrl}/documents.json`)
-      .pipe(
-        map((documents: Document[]) => {
-          // Optional: Include any transformations or additional logic here before returning
-          this.maxDocumentId = this.getMaxId(documents);
-          return documents.sort((a, b) => a.name.localeCompare(b.name));
-        }),
-        tap((fetchedDocuments) => {
-          this.setDocuments(fetchedDocuments);
-        })
-      );
-  }
-
-  storeDocuments() {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    this.http
-      .put(
-        `${environment.firebaseUrl}/documents.json`,
-        JSON.stringify(this.documents),
-        { headers: headers }
-      )
-      .subscribe(() => {
-        this.documentListChangedEvent.next(this.documents.slice());
-      });
-  }
-
   addDocument(newDocument: Document) {
     if (!newDocument) {
       return;
     }
-    // Assuming getMaxId and other utility methods are defined elsewhere in the service
     this.maxDocumentId++;
     newDocument.id = this.maxDocumentId.toString();
     this.documents.push(newDocument);
-    this.storeDocuments();
+    this.dataStorageService.storeDocuments(this.documents);
   }
 
   deleteDocument(document: Document) {
@@ -84,7 +60,7 @@ export class DocumentService {
     const index = this.documents.findIndex((d) => d.id === document.id);
     if (index !== -1) {
       this.documents.splice(index, 1);
-      this.storeDocuments();
+      this.dataStorageService.storeDocuments(this.documents);
     }
   }
 
@@ -96,13 +72,13 @@ export class DocumentService {
     if (pos !== -1) {
       newDocument.id = originalDocument.id;
       this.documents[pos] = newDocument;
-      this.storeDocuments();
+      this.dataStorageService.storeDocuments(this.documents);
     }
   }
 
-  // Ensure getMaxId and any other utility methods are correctly implemented
-  private getMaxId(documents: Document[]): number {
-    // Implementation for getMaxId
-    return Math.max(...documents.map((d) => Number(d.id)), 0);
+  private getMaxId(): number {
+    return this.documents.length > 0
+      ? Math.max(...this.documents.map((d) => +d.id))
+      : 0;
   }
 }
