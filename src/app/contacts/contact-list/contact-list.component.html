@@ -29,7 +29,7 @@
           <div class="list-group">
             <!-- Apply the ContactsFilterPipe to the list of contacts here -->
             <cms-contact-item
-              *ngFor="let contact of contacts | contactsFilter: term"
+              *ngFor="let contact of contacts$ | async | contactsFilter: term"
               [contact]="contact"
             ></cms-contact-item>
           </div>
