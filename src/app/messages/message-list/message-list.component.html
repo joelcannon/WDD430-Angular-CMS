@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="panel-body">
-        <div class="row" *ngFor="let message of messages">
+        <div class="row" *ngFor="let message of messages$ | async">
           <div class="col-xs-12">
             <cms-message-item [message]="message"> </cms-message-item>
           </div>

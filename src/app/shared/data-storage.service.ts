@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Document } from '../documents/document.model';
 import { Contact } from '../contacts/contact.model'; // Ensure you have a Contact model
+import { Message } from '../messages/message.model'; // Import the Message model
 
 import { Observable, throwError, Subject } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -11,6 +12,7 @@ import { environment } from '../../environments/environment';
 export class DataStorageService {
   documentsChanged = new Subject<Document[]>(); // Step 2: Use Subject
   contactsChanged = new Subject<Contact[]>(); // Add a new Subject for contacts
+  messagesChanged = new Subject<Message[]>(); // Add a new Subject for messages
 
   constructor(private http: HttpClient) {}
 
@@ -70,6 +72,36 @@ export class DataStorageService {
         catchError((error) => {
           console.error('Error fetching contacts:', error);
           return throwError(() => new Error('Error fetching contacts'));
+        })
+      );
+  }
+
+  storeMessages(messages: Message[]) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.http
+      .put(
+        `${environment.firebaseUrl}/messages.json`,
+        JSON.stringify(messages),
+        { headers: headers }
+      )
+      .subscribe(() => {
+        this.messagesChanged.next(messages);
+      });
+  }
+
+  fetchMessages(): Observable<Message[]> {
+    return this.http
+      .get<Message[]>(`${environment.firebaseUrl}/messages.json`)
+      .pipe(
+        map((messages) => {
+          return messages ? messages : [];
+        }),
+        tap((messages) => {
+          this.messagesChanged.next(messages);
+        }),
+        catchError((error) => {
+          // Handle errors appropriately
+          return throwError(error);
         })
       );
   }
