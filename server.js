@@ -10,6 +10,9 @@ const cors = require('cors'); // Assuming you've installed cors
 const index = require('./server/routes/app');
 
 // ... ADD CODE TO IMPORT YOUR ROUTING FILES HERE ...
+const documentsRoutes = require('./server/routes/documents');
+const messagesRoutes = require('./server/routes/messages');
+const contactsRoutes = require('./server/routes/contacts');
 
 const app = express(); // create an instance of express
 
@@ -41,7 +44,10 @@ app.use(express.static(path.join(__dirname, 'dist/cms')));
 // Tell express to map the default route ('/') to the index route
 app.use('/', index);
 
-// ... ADD YOUR CODE TO MAP YOUR URL'S TO ROUTING FILES HERE ...
+app.use('/api/documents', documentsRoutes);
+app.use('/api/messages', messagesRoutes);
+app.use('/api/contacts', contactsRoutes);
+
 app.use(function (req, res, next) {
   res.render('index');
 });
