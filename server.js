@@ -4,7 +4,11 @@ const path = require('path');
 const http = require('http');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const cors = require('cors'); // Assuming you've installed cors
+const cors = require('cors');
+const mongoose = require('mongoose');
+
+// Get environment variables
+require('dotenv').config();
 
 // import the routing file to handle the default (index) route
 const index = require('./server/routes/app');
@@ -40,6 +44,12 @@ app.use((req, res, next) => {
 // Tell express to use the specified director as the
 // root directory for your web site
 app.use(express.static(path.join(__dirname, 'dist/cms')));
+
+// establish a connection to the mongo database
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => console.log('Connected to database!'))
+  .catch((err) => console.log('Connection failed: ' + err));
 
 // Tell express to map the default route ('/') to the index route
 app.use('/', index);

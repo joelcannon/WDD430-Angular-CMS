@@ -28,6 +28,9 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
+# Environmental Variables (secrets)
+.env
+
 # Miscellaneous
 /.angular/cache
 .sass-cache/
@@ -36,6 +39,7 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
+
 
 # System files
 .DS_Store
