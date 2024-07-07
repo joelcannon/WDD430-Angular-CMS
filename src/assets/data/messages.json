@@ -28,5 +28,11 @@
     "subject": "Assignment 3 help",
     "msgText": "I can meet with you today at 4:00 PM in my office.",
     "sender": "58c76738-6f1d-58eb-c37a-f1ed00000007"
+  },
+  {
+    "_id": "123e4567-e89b-12d3-a456-426614174005",
+    "subject": "Look Mom, no hands!",
+    "msgText": "I can add my own messages to the database!",
+    "sender": "58c76738-6f1d-58eb-c37a-f1e900000107"
   }
 ]
