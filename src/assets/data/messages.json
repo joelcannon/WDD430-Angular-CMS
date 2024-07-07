@@ -1,0 +1,32 @@
+[
+  {
+    "_id": "123e4567-e89b-12d3-a456-426614174000",
+    "subject": "CIT 366 assignment 1",
+    "msgText": "The grades for this assignment have been posted.",
+    "sender": "58c76738-6f1d-58eb-c37a-f1ed00000007"
+  },
+  {
+    "_id": "123e4567-e89b-12d3-a456-426614174001",
+    "subject": "CIT 366 assignment 3",
+    "msgText": "When is assignment 3 due?",
+    "sender": "58c76738-6f1d-58eb-c37a-f1f200000013"
+  },
+  {
+    "_id": "123e4567-e89b-12d3-a456-426614174002",
+    "subject": "CIT 366 assignment 3 due date",
+    "msgText": "Assignment 3 is due on Saturday at 11:30 PM.",
+    "sender": "58c76738-6f1d-58eb-c37a-f1ed00000007"
+  },
+  {
+    "_id": "123e4567-e89b-12d3-a456-426614174003",
+    "subject": "Assignment 3 help",
+    "msgText": "Can I meet with you sometime? I need help with assignment 3.",
+    "sender": "58c76738-6f1d-58eb-c37a-f1eb00000003"
+  },
+  {
+    "_id": "123e4567-e89b-12d3-a456-426614174004",
+    "subject": "Assignment 3 help",
+    "msgText": "I can meet with you today at 4:00 PM in my office.",
+    "sender": "58c76738-6f1d-58eb-c37a-f1ed00000007"
+  }
+]

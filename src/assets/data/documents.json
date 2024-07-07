@@ -1,0 +1,176 @@
+[
+  {
+    "_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "name": "CIT 425 - Data Warehousing",
+    "url": "https://rkjdatawarehousing.wordpress.com/",
+    "children": [
+      {
+        "_id": "e0eca0f8-4ee4-4b3a-9d8a-4f8f90ab77e8",
+        "name": "Project 1 – The Kimball Method",
+        "url": "https://rkjdatawarehousing.wordpress.com/projects/project-1-the-kimball-method/"
+      },
+      {
+        "_id": "f3b8b95d-31e0-4a3e-bfda-c1d48030b045",
+        "name": "Project 2 – Data warehouses vs. marts",
+        "url": "https://rkjdatawarehousing.wordpress.com/projects/project-2-data-warehouses-vs-marts/"
+      },
+      {
+        "_id": "a4d558e7-3d4a-4a56-8aae-27d5a29559d3",
+        "name": "Project 3 – The ETL Process",
+        "url": "https://rkjdatawarehousing.wordpress.com/projects/project-3-the-etl-process/"
+      },
+      {
+        "_id": "b5c4d5f8-6f00-4b0d-9d9e-3e4b5b2d7c96",
+        "name": "Project 4 – Modify the OLTP design",
+        "url": "https://rkjdatawarehousing.wordpress.com/projects/project-4-oltp-modifications-to-erp-design/"
+      },
+      {
+        "_id": "c6d6e6f9-7f10-4c1d-ae9f-4e5c6c3d8d07",
+        "name": "Project 5 – The OLAP design",
+        "url": "https://rkjdatawarehousing.wordpress.com/projects/project-4/"
+      },
+      {
+        "_id": "d7e7f7fa-8f20-4d2e-bfa0-5f6d7d4e9e18",
+        "name": "Project 6 – Transforming data",
+        "url": "https://rkjdatawarehousing.wordpress.com/projects/transforming-data/"
+      },
+      {
+        "_id": "e8f8g8fb-9f30-4e3f-cfb1-6g7e8e5fae29",
+        "name": "Project 7 – MarkLogic",
+        "url": "https://rkjdatawarehousing.wordpress.com/projects/project-7-marklogic/"
+      },
+      {
+        "_id": "f9g9h9gc-af40-4f4g-dfc2-7h8f9f6gbf3a",
+        "name": "Project 8 – Build a web application",
+        "url": "https://rkjdatawarehousing.wordpress.com/projects/project-8/"
+      }
+    ]
+  },
+  {
+    "_id": "765d4c4b-7844-4821-9d94-4fcd6b08a2f2",
+    "name": "CIT 460 - Enterprise Development",
+    "url": "https://rkjackson.wordpress.com/",
+    "children": [
+      {
+        "_id": "0a1b2c3d-4e5f-6g7h-8i9j-0k1l2m3n4o5p",
+        "name": "Case 1 – Defining the requirements",
+        "url": "https://rkjackson.wordpress.com/cases/case-1/"
+      },
+      {
+        "_id": "1p2o3n4m-5l6k-7j8i-9h8g-7f6e5d4c3b2a",
+        "name": "Case 2 – User Interface design",
+        "url": "https://rkjackson.wordpress.com/cases/case-2/"
+      },
+      {
+        "_id": "2q3r4s5t-6u7v-8w9x-0y1z-2a3b4c5d6e7f",
+        "name": "Case 3 – Implementing Model Layer",
+        "url": "https://rkjackson.wordpress.com/cases/case-3/",
+        "children": [
+          {
+            "_id": "3f4e5d6c-7b8a-9y0x-w8v7-u6t5s4r3q2p",
+            "name": "Team Assignment",
+            "description": "Create your first JavaBean class"
+          },
+          {
+            "_id": "4g5h6i7j-8k9l-0m1n-2o3p-4q5r6s7t8u9v",
+            "name": "Indiv_idual Assignment",
+            "description": "Create remaining JavaBean classes"
+          }
+        ]
+      },
+      {
+        "_id": "5h6i7j8k-9l0m-n1o2-p3q4-r5s6t7u8v9w",
+        "name": "Case 4 – Enterprise Java Session Beans",
+        "url": "https://rkjackson.wordpress.com/cases/case-4/"
+      },
+      {
+        "_id": "6i7j8k9l-0m1n-2o3p-4q5r-6s7t8u9v0w",
+        "name": "Case 5 – Implementing the View",
+        "url": "https://rkjackson.wordpress.com/cases/case-5/"
+      },
+      {
+        "_id": "7j8k9l0m-1n2o-3p4q-5r6s-7t8u9v0w1x",
+        "name": "Case 6 – A Framework for the View Layer",
+        "url": "https://rkjackson.wordpress.com/cases/case-6/"
+      }
+    ],
+    "description": null
+  },
+  {
+    "_id": "3f50f836-31d0-4333-aa23-8ee0bfd4f1f7",
+    "name": "CIT 366 - Full Web Stack Development",
+    "url": "https://content.byui.edu/file/b7c3e5ed-6947-497f-9d32-4e5b6b397cac/1/CIT 366 course description.pdf",
+    "children": [
+      {
+        "_id": "8k9l0m1n-2o3p-4q5r-5s6t-7u8v9w0x1y",
+        "name": "Lesson 1 - JavaScript Best Practices",
+        "url": "https://content.byui.edu/file/f0594919-9524-47eb-9f4d-5c7239c3c002/1/Lesson1Introduction.pdf"
+      },
+      {
+        "_id": "9l0m1n2o-3p4q-5r6s-7t8u-9v0w1x2y3z",
+        "name": "Lesson 2 - The DOM and JQuery",
+        "url": "https://content.byui.edu/file/c67e59fd-990c-4adc-9232-8027f847c8b9/1/Lesson2Introduction.pdf"
+      },
+      {
+        "_id": "0m1n2o3p-4q5r-6s7t-8u9v-w0x1y2z3a4",
+        "name": "Lesson 3 - Angular 2 Framework 1",
+        "url": "https://content.byui.edu/file/aa9b6af5-b882-48f5-8321-caca980e5ec9/1/Lesson3Introduction.pdf"
+      },
+      {
+        "_id": "1n2o3p4q-5r6s-7t8u-9v0w-x1y2z3a4b5",
+        "name": "Lesson 4 - Angular 2 Framework 2",
+        "url": "https://content.byui.edu/file/2c4ddd6c-dce4-408d-b581-f254a13e4d10/1/Lesson4Introduction.pdf"
+      },
+      {
+        "_id": "2o3p4q5r-6s7t-8u9v-w0x1-y2z3a4b5c6",
+        "name": "Lesson 5 - Angular 2 Framework 3",
+        "url": "https://content.byui.edu/file/66dc0765-22a7-4cd8-a184-942c607636fb/1/Lesson5Introduction.pdf"
+      }
+    ]
+  },
+  {
+    "_id": "a3f8b08f-9a5c-4ab7-b0d0-2d5d28e5fa91",
+    "name": "CIT 366 - Full Web Stack Development",
+    "url": "https://content.byui.edu/file/b7c3e5ed-6947-497f-9d32-4e5b6b397cac/1/CIT 366 course description.pdf"
+  },
+  {
+    "_id": "d3d94468-2a56-4ef3-b8d7-507b0f8c8c48",
+    "name": "CIT 240 - Introduction to Networking",
+    "url": "https://www.byui.edu/computer-information-technology/courses"
+  },
+  {
+    "_id": "5e9ddef9-3f0c-42a3-82fc-5938d25a62a4",
+    "name": "CIT 370 - Computer Security I",
+    "url": "https://www.byui.edu/computer-information-technology/courses"
+  },
+  {
+    "_id": "6c8349cc-7260-ae62-e3b1-39831a8398f",
+    "name": "CIT 360 - Object Oriented Programming II",
+    "url": "https://www.byui.edu/computer-information-technology/courses"
+  },
+  {
+    "_id": "fe9fc289-c3ff-0af1-42b6-d3bead98a923",
+    "name": "CIT 470 - Computer Security II",
+    "url": "https://www.byui.edu/computer-information-technology/courses"
+  },
+  {
+    "_id": "0ade7c2c-f97f-75d0-0975-f4d720d1fa6",
+    "name": "CIT 262 - Mobile Development",
+    "url": "https://www.byui.edu/computer-information-technology/courses"
+  },
+  {
+    "_id": "c16a5320-fa47-530d-9583-c34fd356ef5",
+    "name": "CIT 230 - Web Page Development",
+    "url": "https://www.byui.edu/computer-information-technology/courses"
+  },
+  {
+    "_id": "6ea9ab1b-aa0e-fb9e-1909-4440c317e21b",
+    "name": "CIT 236 - Web Development",
+    "url": "https://www.byui.edu/computer-information-technology/courses"
+  },
+  {
+    "_id": "182be0c5-cdcd-5072-bb18-64cdee4d3d6e",
+    "name": "CIT 340 - Networking II",
+    "url": "https://www.byui.edu/computer-information-technology/courses"
+  }
+]
