@@ -8,7 +8,7 @@ const contactSchema = mongoose.Schema({
   email: { type: String, default: null },
   phone: { type: String, default: null },
   imageUrl: { type: String, default: null },
-  group: [{ type: String, ref: 'Contact', default: uuidv4 }],
+  group: [{ type: String, ref: 'Contact' }],
 });
 
 module.exports = mongoose.model('Contact', contactSchema);
