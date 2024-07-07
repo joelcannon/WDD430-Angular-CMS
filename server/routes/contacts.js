@@ -3,13 +3,21 @@ var router = express.Router();
 const Contact = require('../models/contact'); // Import the Contact model
 
 // GET all contacts
-router.get('/', (req, res, next) => {
-  Contact.find({}, (err, contacts) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    res.status(200).json(contacts);
-  });
+router.get('/', (req, res) => {
+  Contact.find()
+    .populate('group')
+    .then((contacts) => {
+      res.status(200).json({
+        message: 'Contacts fetched successfully!',
+        contacts: contacts,
+      });
+    })
+    .catch((error) => {
+      res.status(500).json({
+        message: 'An error occurred',
+        error: error.message,
+      });
+    });
 });
 
 // POST a new contact

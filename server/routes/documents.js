@@ -2,13 +2,15 @@ var express = require('express');
 var router = express.Router();
 const Document = require('../models/document');
 
-router.get('/', (req, res, next) => {
-  Document.find({}, (err, documents) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    res.status(200).json(documents);
-  });
+// GET all documents
+router.get('/', (req, res) => {
+  Document.find({})
+    .then((documents) => {
+      res.status(200).json(documents);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
 });
 
 router.post('/', (req, res, next) => {

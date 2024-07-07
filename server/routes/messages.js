@@ -3,13 +3,16 @@ var router = express.Router();
 const Message = require('../models/message'); // Import the Message model
 
 // GET all messages
-router.get('/', (req, res, next) => {
-  Message.find({}, (err, messages) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    res.status(200).json(messages);
-  });
+router.get('/', (req, res) => {
+  Message.find()
+    .then((messages) => {
+      res.status(200).json(messages);
+    })
+    .catch((error) => {
+      res
+        .status(500)
+        .json({ message: 'An error occurred', error: error.message });
+    });
 });
 
 // POST a new message
