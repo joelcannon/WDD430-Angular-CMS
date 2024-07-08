@@ -1,104 +1,78 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const { handleError } = require('../middlewares/utils');
+
 const Document = require('../models/document');
+const { v4: uuidv4 } = require('uuid'); // Ensure uuidv4 is imported to generate IDs
 
 // GET all documents
-router.get('/', (req, res) => {
-  Document.find({})
-    .then((documents) => {
-      res.status(200).json(documents);
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
+router.get('/', async (req, res) => {
+  try {
+    const documents = await Document.find({});
+    res.status(200).json({
+      message: 'Documents fetched successfully!',
+      data: documents,
     });
+  } catch (error) {
+    handleError(res, 'fetching the document', error);
+  }
 });
 
-router.post('/', (req, res, next) => {
-  const document = new Document({
-    _id: uuidv4(), // Generate a new UUID for the _id field
-    name: req.body.name,
-    description: req.body.description,
-    url: req.body.url,
-  });
-
-  document
-    .save()
-    .then((createdDocument) => {
-      res.status(201).json({
-        message: 'Document added successfully',
-        document: createdDocument,
-      });
-    })
-    .catch((error) => {
-      res.status(500).json({
-        message: 'An error occurred',
-        error: error,
-      });
+// POST a new document
+router.post('/', async (req, res) => {
+  try {
+    const document = new Document({
+      _id: uuidv4(), // Generate a new UUID for the _id field
+      name: req.body.name,
+      description: req.body.description,
+      url: req.body.url,
     });
+    const createdDocument = await document.save();
+    res.status(201).json({
+      message: 'Document added successfully',
+      document: createdDocument,
+    });
+  } catch (error) {
+    handleError(res, 'adding the document', error);
+  }
 });
 
-router.put('/:_id', (req, res, next) => {
-  Document.findOne({ _id: req.params._id })
-    .then((document) => {
-      if (!document) {
-        return res.status(404).json({
-          message: 'Document not found.',
-        });
-      }
-      document.name = req.body.name;
-      document.description = req.body.description;
-      document.url = req.body.url;
-
-      document
-        .save()
-        .then((result) => {
-          res.status(200).json({
-            message: 'Document updated successfully',
-            document: result,
-          });
-        })
-        .catch((error) => {
-          res.status(500).json({
-            message: 'An error occurred',
-            error: error,
-          });
-        });
-    })
-    .catch((error) => {
-      res.status(500).json({
+// PUT to update a document by _id
+router.put('/:_id', async (req, res) => {
+  try {
+    const updatedDocument = await Document.findOneAndUpdate(
+      { _id: req.params._id },
+      req.body,
+      { new: true }
+    );
+    if (!updatedDocument) {
+      return res.status(404).json({
         message: 'Document not found.',
-        error: { document: 'Document not found' },
       });
+    }
+    res.status(200).json({
+      message: 'Document updated successfully',
+      data: updatedDocument,
     });
+  } catch (error) {
+    handleError(res, 'updating the document', error);
+  }
 });
 
-router.delete('/:id', (req, res, next) => {
-  Document.findOne({ _id: req.params._id })
-    .then((document) => {
-      if (!document) {
-        return res.status(404).json({
-          message: 'Document not found.',
-        });
-      }
-      Document.deleteOne({ _id: req.params._id })
-        .then(() => {
-          res.status(204).json({
-            message: 'Document deleted successfully',
-          });
-        })
-        .catch((error) => {
-          res.status(500).json({
-            message: 'An error occurred',
-            error: error,
-          });
-        });
-    })
-    .catch((error) => {
-      res.status(500).json({
+// DELETE a document by _id
+router.delete('/:_id', async (req, res) => {
+  try {
+    const document = await Document.findOne({ _id: req.params._id });
+    if (!document) {
+      return res.status(404).json({
         message: 'Document not found.',
-        error: { document: 'Document not found' },
       });
-    });
+    }
+    await Document.deleteOne({ _id: req.params._id });
+    res.status(204).send(); // No content to send back
+  } catch (error) {
+    handleError(res, 'deleting the document', error);
+  }
 });
 
 module.exports = router;

@@ -1,108 +1,77 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const { handleError } = require('../middlewares/utils');
+
 const Message = require('../models/message'); // Import the Message model
 
 // GET all messages
-router.get('/', (req, res) => {
-  Message.find()
-    .then((messages) => {
-      res.status(200).json(messages);
-    })
-    .catch((error) => {
-      res
-        .status(500)
-        .json({ message: 'An error occurred', error: error.message });
+router.get('/', async (req, res) => {
+  try {
+    const messages = await Message.find().populate('sender');
+    res.status(200).json({
+      message: 'Messages fetched successfully!',
+      data: messages,
     });
+  } catch (error) {
+    handleError(res, 'fetching the messages', error);
+  }
 });
 
 // POST a new message
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res) => {
   const message = new Message({
     subject: req.body.subject,
     msgText: req.body.msgText,
     sender: req.body.sender,
   });
 
-  message
-    .save()
-    .then((createdMessage) => {
-      res.status(201).json({
-        message: 'Message added successfully',
-        message: createdMessage,
-      });
-    })
-    .catch((error) => {
-      res.status(500).json({
-        message: 'An error occurred',
-        error: error,
-      });
+  try {
+    const createdMessage = await message.save();
+    res.status(201).json({
+      message: 'Message added successfully',
+      data: createdMessage,
     });
+  } catch (error) {
+    handleError(res, 'adding the messages', error);
+  }
 });
 
 // PUT to update a message by _id
-router.put('/:_id', (req, res, next) => {
-  Message.findOne({ _id: req.params._id })
-    .then((message) => {
-      if (!message) {
-        return res.status(404).json({
-          message: 'Message not found.',
-        });
-      }
-      message.subject = req.body.subject;
-      message.msgText = req.body.msgText;
-      message.sender = req.body.sender;
-
-      message
-        .save()
-        .then((result) => {
-          res.status(200).json({
-            message: 'Message updated successfully',
-            message: result,
-          });
-        })
-        .catch((error) => {
-          res.status(500).json({
-            message: 'An error occurred',
-            error: error,
-          });
-        });
-    })
-    .catch((error) => {
-      res.status(500).json({
+router.put('/:_id', async (req, res) => {
+  try {
+    const updatedMessage = await Message.findOneAndUpdate(
+      { _id: req.params._id },
+      req.body,
+      { new: true }
+    );
+    if (!updatedMessage) {
+      return res.status(404).json({
         message: 'Message not found.',
-        error: { message: 'Message not found' },
       });
+    }
+    res.status(200).json({
+      message: 'Message updated successfully',
+      data: updatedMessage,
     });
+  } catch (error) {
+    handleError(res, 'updating the message', error);
+  }
 });
 
 // DELETE a message by _id
-router.delete('/:_id', (req, res, next) => {
-  Message.findOne({ _id: req.params._id })
-    .then((message) => {
-      if (!message) {
-        return res.status(404).json({
-          message: 'Message not found.',
-        });
-      }
-      Message.deleteOne({ _id: req.params._id })
-        .then(() => {
-          res.status(204).json({
-            message: 'Message deleted successfully',
-          });
-        })
-        .catch((error) => {
-          res.status(500).json({
-            message: 'An error occurred',
-            error: error,
-          });
-        });
-    })
-    .catch((error) => {
-      res.status(500).json({
+router.delete('/:_id', async (req, res) => {
+  try {
+    const message = await Message.findOne({ _id: req.params._id });
+    if (!message) {
+      return res.status(404).json({
         message: 'Message not found.',
-        error: { message: 'Message not found' },
       });
-    });
+    }
+    await Message.deleteOne({ _id: req.params._id });
+    res.status(204).send(); // No content to send back
+  } catch (error) {
+    handleError(res, 'deleting the messages', error);
+  }
 });
 
 module.exports = router;

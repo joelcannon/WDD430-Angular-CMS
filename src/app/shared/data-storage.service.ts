@@ -19,11 +19,9 @@ export class DataStorageService {
   storeDocuments(documents: Document[]) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.http
-      .put(
-        `${environment.firebaseUrl}/documents.json`,
-        JSON.stringify(documents),
-        { headers: headers }
-      )
+      .put(`${environment.apiUrl}/documents`, JSON.stringify(documents), {
+        headers: headers,
+      })
       .subscribe(() => {
         this.documentsChanged.next(documents);
       });
@@ -31,10 +29,13 @@ export class DataStorageService {
 
   fetchDocuments(): Observable<Document[]> {
     return this.http
-      .get<Document[]>(`${environment.firebaseUrl}/documents.json`)
+      .get<{
+        message: string;
+        data: Document[];
+      }>(`${environment.apiUrl}/documents`)
       .pipe(
-        map((documents) =>
-          documents.sort((a, b) => a.name.localeCompare(b.name))
+        map((response) =>
+          response.data.sort((a, b) => a.name.localeCompare(b.name))
         ),
         tap((fetchedDocuments) => {
           this.documentsChanged.next(fetchedDocuments);
@@ -49,11 +50,9 @@ export class DataStorageService {
   storeContacts(contacts: Contact[]) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.http
-      .put(
-        `${environment.firebaseUrl}/contacts.json`,
-        JSON.stringify(contacts),
-        { headers: headers }
-      )
+      .put(`${environment.apiUrl}/contacts`, JSON.stringify(contacts), {
+        headers: headers,
+      })
       .subscribe(() => {
         this.contactsChanged.next(contacts);
       });
@@ -61,10 +60,13 @@ export class DataStorageService {
 
   fetchContacts(): Observable<Contact[]> {
     return this.http
-      .get<Contact[]>(`${environment.firebaseUrl}/contacts.json`)
+      .get<{
+        message: string;
+        data: Contact[];
+      }>(`${environment.apiUrl}/contacts`)
       .pipe(
-        map((contacts) =>
-          contacts.sort((a, b) => a.name.localeCompare(b.name))
+        map((response) =>
+          response.data.sort((a, b) => a.name.localeCompare(b.name))
         ),
         tap((fetchedContacts) => {
           this.contactsChanged.next(fetchedContacts);
@@ -79,11 +81,9 @@ export class DataStorageService {
   storeMessages(messages: Message[]) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.http
-      .put(
-        `${environment.firebaseUrl}/messages.json`,
-        JSON.stringify(messages),
-        { headers: headers }
-      )
+      .put(`${environment.apiUrl}/messages`, JSON.stringify(messages), {
+        headers: headers,
+      })
       .subscribe(() => {
         this.messagesChanged.next(messages);
       });
@@ -91,17 +91,18 @@ export class DataStorageService {
 
   fetchMessages(): Observable<Message[]> {
     return this.http
-      .get<Message[]>(`${environment.firebaseUrl}/messages.json`)
+      .get<{
+        message: string;
+        data: Message[];
+      }>(`${environment.apiUrl}/messages`)
       .pipe(
-        map((messages) => {
-          return messages ? messages : [];
-        }),
-        tap((messages) => {
-          this.messagesChanged.next(messages);
+        map((response) => response.data),
+        tap((fetchedMessages) => {
+          this.messagesChanged.next(fetchedMessages);
         }),
         catchError((error) => {
-          // Handle errors appropriately
-          return throwError(error);
+          console.error('Error fetching messages:', error);
+          return throwError(() => new Error('Error fetching messages'));
         })
       );
   }
