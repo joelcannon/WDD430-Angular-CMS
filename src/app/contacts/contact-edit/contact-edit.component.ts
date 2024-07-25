@@ -19,9 +19,9 @@ export class ContactEditComponent implements OnInit {
 
   originalContact: Contact; // Add this line
   contact: Contact = new Contact('', '', '', '', '', []);
-  groupContacts: Contact[] = [];
+  group: Contact[] = [];
   editMode: boolean = false; // Add this line
-  id: string; // Add this line
+  _id: string; // Add this line
   email: string = '';
 
   constructor(
@@ -32,25 +32,23 @@ export class ContactEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.id = params['id'];
-      if (this.id === undefined || this.id === null) {
+      this._id = params['_id'];
+      if (this._id === undefined || this._id === null) {
         this.editMode = false;
         return;
       }
-      this.originalContact = this.contactService.getContact(this.id);
-      if (this.originalContact === undefined || this.id === null) {
+      this.originalContact = this.contactService.getContact(this._id);
+      if (this.originalContact === undefined || this._id === null) {
         return;
       }
       this.editMode = true;
       this.contact = JSON.parse(JSON.stringify(this.originalContact)); // Clone originalContact
 
       if (
-        this.originalContact.groupContacts !== undefined &&
-        this.originalContact.groupContacts !== null
+        this.originalContact.group !== undefined &&
+        this.originalContact.group !== null
       ) {
-        this.groupContacts = JSON.parse(
-          JSON.stringify(this.originalContact.groupContacts)
-        ); // Clone group
+        this.group = JSON.parse(JSON.stringify(this.originalContact.group)); // Clone group
       }
     });
   }
@@ -63,7 +61,7 @@ export class ContactEditComponent implements OnInit {
       value.email,
       value.phone,
       value.imageUrl,
-      this.groupContacts
+      this.group
     );
     if (this.editMode === true) {
       this.contactService.updateContact(this.originalContact, newContact);
@@ -79,7 +77,7 @@ export class ContactEditComponent implements OnInit {
 
   drag(event) {
     console.log('drag');
-    event.dataTransfer.setData('text', event.target.id);
+    event.dataTransfer.setData('text', event.target._id);
   }
 
   allowDrop(event) {
@@ -94,11 +92,7 @@ export class ContactEditComponent implements OnInit {
   // }
   drop(event: CdkDragDrop<string[]>) {
     console.log('drop');
-    moveItemInArray(
-      this.groupContacts,
-      event.previousIndex,
-      event.currentIndex
-    );
+    moveItemInArray(this.group, event.previousIndex, event.currentIndex);
   }
 
   isInvalidContact(newContact: Contact): boolean {
@@ -107,10 +101,10 @@ export class ContactEditComponent implements OnInit {
       // newContact has no value
       return true;
     }
-    if (this.contact && newContact.id === this.contact.id) {
+    if (this.contact && newContact._id === this.contact._id) {
       return true; // Cannot add yourself to your own group
     }
-    return this.groupContacts.some((contact) => contact.id === newContact.id);
+    return this.group.some((contact) => contact._id === newContact._id);
   }
 
   addToGroup($event: any) {
@@ -119,15 +113,15 @@ export class ContactEditComponent implements OnInit {
     if (invalidGroupContact) {
       return;
     }
-    this.groupContacts.push(selectedContact);
+    this.group.push(selectedContact);
     console.log('addToGroup');
   }
 
   onRemoveItem(index: number) {
-    if (index < 0 || index >= this.groupContacts.length) {
+    if (index < 0 || index >= this.group.length) {
       return;
     }
-    this.groupContacts.splice(index, 1);
+    this.group.splice(index, 1);
     console.log('onRemoveItem');
   }
 }

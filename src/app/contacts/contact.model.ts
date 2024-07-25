@@ -1,10 +1,12 @@
 export class Contact {
   constructor(
-    public id: string,
+    // public id: string,
+    public _id: string,
     public name: string,
     public email: string,
     public phone: string,
     public imageUrl: string,
-    public groupContacts: Contact[]
+    // public groupContacts: Contact[]
+    public group: Contact[]
   ) {}
 }

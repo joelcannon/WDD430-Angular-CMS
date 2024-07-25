@@ -90,7 +90,7 @@
             [cdkDropListConnectedTo]="contactList"
             (cdkDropListDropped)="drop($event)"
           >
-            <div *ngFor="let contact of groupContacts; let i = index">
+            <div *ngFor="let contact of group; let i = index">
               <div>
                 <cms-contact-item
                   class="col-sm-11"
@@ -105,7 +105,7 @@
                 </button>
               </div>
             </div>
-            <span class="dragMsg" *ngIf="groupContacts?.length < 1"
+            <span class="dragMsg" *ngIf="group?.length < 1"
               >Drag contacts in group here</span
             >
           </div>

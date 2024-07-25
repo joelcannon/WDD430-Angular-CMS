@@ -9,9 +9,11 @@ const { v4: uuidv4 } = require('uuid'); // Ensure uuidv4 is imported to generate
 router.get('/', async (req, res) => {
   try {
     const contacts = await Contact.find().populate('group');
+    // const translatedContacts = translateId(contacts);
     res.status(200).json({
       message: 'Contacts fetched successfully!',
       data: contacts,
+      // translated: translatedContacts,
     });
   } catch (error) {
     handleError(res, 'fetching the contacts', error);

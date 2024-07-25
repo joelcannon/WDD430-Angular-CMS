@@ -58,7 +58,51 @@ export class DataStorageService {
       });
   }
 
-  fetchContacts(): Observable<Contact[]> {
+  addContact(newContact: Contact) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.http.post(
+      `${environment.apiUrl}/contacts`,
+      JSON.stringify(newContact),
+      {
+        headers: headers,
+      }
+    );
+  }
+
+  // DELETE a contact by ID with error handling
+  deleteContact(contactId: string) {
+    return this.http.delete(`${environment.apiUrl}/contacts/${contactId}`).pipe(
+      catchError((error) => {
+        // Handle the error or log it
+        console.error('Error occurred while deleting contact:', error);
+        // Rethrow or handle it differently
+        return throwError(() => new Error('Failed to delete contact'));
+      })
+    );
+  }
+
+  // UPDATE a contact with error handling
+  updateContact(contactId: string, updatedContact: Contact) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http
+      .put(
+        `${environment.apiUrl}/contacts/${contactId}`,
+        JSON.stringify(updatedContact),
+        {
+          headers: headers,
+        }
+      )
+      .pipe(
+        catchError((error) => {
+          // Handle the error or log it
+          console.error('Error occurred while updating contact:', error);
+          // Rethrow or handle it differently
+          return throwError(() => new Error('Failed to update contact'));
+        })
+      );
+  }
+
+  fetchContactsJWC(): Observable<Contact[]> {
     return this.http
       .get<{
         message: string;

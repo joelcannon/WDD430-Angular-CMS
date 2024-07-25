@@ -16,12 +16,12 @@ export class ContactListComponent implements OnInit {
   term: string;
 
   constructor(
-    private contactService: ContactService,
-    private dataStorageService: DataStorageService
+    private contactService: ContactService
+    // private dataStorageService: DataStorageService
   ) {}
 
   ngOnInit(): void {
-    this.contacts$ = this.dataStorageService.fetchContacts();
+    this.contacts$ = this.contactService.fetchContacts();
   }
 
   search(value: string) {
